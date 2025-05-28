@@ -52,6 +52,11 @@ const handleTransactionSubmitted = (transactionData) => {
 const generateID = () => {
   return Math.floor(Math.random() * 1000000)
 }
+
+const handleTransactionDeleted = (id) => {
+  transactions.value = transactions.value.filter((transaction) => transaction.id !== id)
+  toast.success('Transaction Deleted')
+}
 </script>
 
 <template>
@@ -60,6 +65,6 @@ const generateID = () => {
     <Balance :total="+total" />
   </div>
   <IncomeExpenses :income="+income" :expenses="+expenses" />
-  <TransactionList :transactions="transactions" />
+  <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted" />
   <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
 </template>
